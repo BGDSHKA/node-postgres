@@ -5,7 +5,7 @@ const { body } = require('express-validator');
 const authMiddleware = require('../middlewares/auth-middleware');
 const pool = require('../db');
 
-router.get('/add', async (res, req) => {
+router.get('/postgresUsers', async (req, res) => {
   try {
     const client = await pool.connect();
 
@@ -14,8 +14,7 @@ router.get('/add', async (res, req) => {
     const users = rows;
 
     client.release();
-
-    res.send(users);
+    res.send(JSON.stringify(users));
   } catch (error) {
     res.status(400).send(error);
   }
